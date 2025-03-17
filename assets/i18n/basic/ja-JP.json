@@ -1,0 +1,22 @@
+{
+  "NAV": {
+    "INDEX": "ブログ",
+    "RSS": "購読",
+    "SEARCH": "検索",
+    "ABOUT": "このサイトについて",
+    "READING": "読む"
+  },
+  "PAGINATION": {
+    "PREV": "前ページ",
+    "NEXT": "次ページ"
+  },
+  "POST": {
+    "BACK": "戻る",
+    "TOP": "トップに戻る"
+  },
+  "PAGE": {
+    "ERROR_404": {
+      "MESSAGE": "ここにはいない"
+    }
+  }
+}

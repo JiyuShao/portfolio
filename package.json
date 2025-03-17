@@ -1,0 +1,56 @@
+{
+  "name": "portfolio",
+  "version": "1.3.0",
+  "homepage": "https://jiyu-shao.vercel.app",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JiyuShao/portfolio.git"
+  },
+  "author": {
+    "name": "Jiyu Shao",
+    "email": "jiyu.shao@gmail.com",
+    "url": "https://github.com/JiyuShao"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "postbuild": "next-sitemap --config next-sitemap.config.js"
+  },
+  "dependencies": {
+    "@notionhq/client": "^2.3.0",
+    "axios": "^1.6.1",
+    "canvas": "^2.11.2",
+    "classnames": "^2.3.2",
+    "dayjs": "^1.11.10",
+    "feed": "^4.2.2",
+    "gitalk": "^1.8.0",
+    "mermaid": "^10.6.1",
+    "next": "^14.0.2",
+    "notion-utils": "^7.1.6",
+    "preact": "^10.19.2",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-cusdis": "^2.1.3",
+    "react-dom": "^18.2.0",
+    "react-notion-x": "^7.2.6",
+    "react-tweet-embed": "^2.0.0",
+    "react-use": "^17.4.0",
+    "use-ackee": "^3.0.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.53.0",
+    "eslint-config-next": "^14.0.2",
+    "next-sitemap": "^4.2.3",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.5"
+  },
+  "bugs": {
+    "url": "https://github.com/JiyuShao/portfolio/issues",
+    "email": "jiyu.shao@gmail.com"
+  },
+  "packageManager": "pnpm@7.33.6+sha512.90e27fd38047f18583f3342f784cc3f187f4d4caac89ebc1fffae18dcd7b2dde7678a0bf237481bcb8f7e8e66135fa34803856e4eb2c442ce082ffab5d9d241f"
+}
