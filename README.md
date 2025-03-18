@@ -4,7 +4,7 @@ A static website build on top of Notion and Nextjs, Modified from [Craig Hart's 
 
 **Why not use Nobelium directly?**
 
-- 😭 Nobelium is using the old Notion API, which is deprecated and buggy.
+- 😭 Nobelium is using the old Notion API, which is deprecated and buggy
 - 😁 New UI design
 - 😁 using pnpm
 
@@ -55,7 +55,7 @@ A static website build on top of Notion and Nextjs, Modified from [Craig Hart's 
 ## Special Thanks
 
 - 2021-2024, [Craig Hart](https://github.com/craigary) for the original [Nobelium](https://github.com/craigary/nobelium)
-- 2024-present, [Jiyu Shao](https://github.com/jiyu-shao) for the maintenance and updates
+- 2024-present, [Jiyu Shao](https://github.com/JiyuShao) for the maintenance and updates
 
 ## License
 
