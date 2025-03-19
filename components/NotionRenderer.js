@@ -12,7 +12,7 @@ const components = {
 
   // Code block
   Code: dynamic(async () => {
-    return function CodeSwitch (props) {
+    return function CodeSwitch(props) {
       switch (getTextContent(props.block.properties.language)) {
         case 'Mermaid':
           return h(
@@ -83,7 +83,7 @@ const components = {
   Tweet: dynamic(() => {
     return import('react-tweet-embed').then(module => {
       const { default: TweetEmbed } = module
-      return function Tweet ({ id }) {
+      return function Tweet({ id }) {
         return <TweetEmbed tweetId={id} options={{ theme: 'dark' }} />
       }
     })
@@ -105,7 +105,7 @@ const mapPageUrl = id => `https://www.notion.so/${id.replace(/-/g, '')}`
  *
  * @param props - Anything that react-notion-x/NotionRenderer supports
  */
-export default function NotionRenderer (props) {
+export default function NotionRenderer(props) {
   const config = useConfig()
 
   const font = {
@@ -113,7 +113,7 @@ export default function NotionRenderer (props) {
     'serif': FONTS_SERIF
   }[config.font]
 
-  console.log('###', props.recordMap.block['1b0688a5-f594-8017-8a7c-d1a7e10410ff'].value)
+  console.log('###PageData', Object.values(props.recordMap.collection)[0].value.content.map(blockId => props.recordMap.block[blockId].value))
 
   // Mark block types to be custom rendered by appending a suffix
   if (props.recordMap) {

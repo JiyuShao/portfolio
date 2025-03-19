@@ -2,10 +2,9 @@ import { clientConfig } from '@/lib/server/config'
 import { transformToRecordMap } from '@/lib/notion/transformToRecordMap'
 import { useRouter } from 'next/router'
 import cn from 'classnames'
-import { getAllPosts, getPostBlocks } from '@/lib/notion'
+import { getAllPosts, getPostBlocksWithChildren } from '@/lib/notion'
 import { useLocale } from '@/lib/locale'
 import { useConfig } from '@/lib/config'
-import { createHash } from 'crypto'
 import Container from '@/components/Container'
 import Post from '@/components/Post'
 import Comments from '@/components/Comments'
@@ -83,12 +82,12 @@ export async function getStaticProps({ params: { slug } }) {
 
   if (!post) return { notFound: true }
 
-  const blocks = await getPostBlocks(post.id)
+  const postBlocks = await getPostBlocksWithChildren(post.id)
 
   return {
     props: {
       post,
-      recordMap: transformToRecordMap(post, blocks),
+      recordMap: transformToRecordMap(postBlocks),
     },
     revalidate: 1
   }
