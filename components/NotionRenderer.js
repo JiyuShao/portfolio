@@ -5,6 +5,7 @@ import { getTextContent } from 'notion-utils'
 import { FONTS_SANS, FONTS_SERIF } from '@/consts'
 import { useConfig } from '@/lib/config'
 import Toggle from '@/components/notion-blocks/Toggle'
+import { TYPE_TRANSFORM_MAP } from '@/lib/notion/transformToRecordMap'
 
 // Lazy-load some heavy components & override the renderers of some block types
 const components = {
@@ -112,8 +113,12 @@ export default function NotionRenderer(props) {
     'sans-serif': FONTS_SANS,
     'serif': FONTS_SERIF
   }[config.font]
-
-  console.log('###PageData', Object.values(props.recordMap.collection)[0].value.content.map(blockId => props.recordMap.block[blockId].value))
+  console.log('###PageData',
+    Object.values(props.recordMap.block)
+      .map(block => block.value)
+      .filter(block => !Object.keys(TYPE_TRANSFORM_MAP).includes(block.rawBlock.type)
+      )
+  )
 
   // Mark block types to be custom rendered by appending a suffix
   if (props.recordMap) {
