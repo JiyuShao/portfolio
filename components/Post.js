@@ -19,7 +19,7 @@ import TableOfContents from '@/components/TableOfContents'
  * @prop {boolean} [fullWidth] - Whether in full-width mode
  */
 export default function Post(props) {
-  const { post, recordMap, fullWidth = false } = props
+  const { post, recordMap, recordMapOld, fullWidth = false } = props
   const { theme } = useTheme()
 
   return (
@@ -50,7 +50,7 @@ export default function Post(props) {
       <div className="self-stretch -mt-4 flex flex-col items-center lg:flex-row lg:items-stretch">
         {!fullWidth && <div className="flex-1 hidden lg:block" />}
         <div className={fullWidth ? 'flex-1 pr-4' : 'flex-none w-full max-w-3xl px-4'}>
-          <NotionRenderer recordMap={recordMap} fullPage={false} darkMode={theme === 'dark'} />
+          <NotionRenderer recordMap={recordMap} recordMapOld={recordMapOld} fullPage={false} darkMode={theme === 'dark'} />
         </div>
         <div className={cn('order-first lg:order-[unset] w-full lg:w-auto max-w-3xl lg:max-w-[unset] lg:min-w-[160px]', fullWidth ? 'flex-none' : 'flex-1')}>
           {/* `65px` is the height of expanded nav */}
@@ -65,5 +65,6 @@ export default function Post(props) {
 Post.propTypes = {
   post: PropTypes.object.isRequired,
   recordMap: PropTypes.object.isRequired,
+  recordMapOld: PropTypes.object.isRequired,
   fullWidth: PropTypes.bool
 }

@@ -2,14 +2,14 @@ import { clientConfig } from '@/lib/server/config'
 import { transformToRecordMap } from '@/lib/notion/transformToRecordMap'
 import { useRouter } from 'next/router'
 import cn from 'classnames'
-import { getAllPosts, getPostBlocksWithChildren } from '@/lib/notion'
+import { getAllPosts, getPostBlocksWithChildren, getPostBlockOld } from '@/lib/notion'
 import { useLocale } from '@/lib/locale'
 import { useConfig } from '@/lib/config'
 import Container from '@/components/Container'
 import Post from '@/components/Post'
 import Comments from '@/components/Comments'
 
-export default function BlogPost({ post, recordMap }) {
+export default function BlogPost({ post, recordMap, recordMapOld }) {
   const router = useRouter()
   const BLOG = useConfig()
   const locale = useLocale()
@@ -32,6 +32,7 @@ export default function BlogPost({ post, recordMap }) {
       <Post
         post={post}
         recordMap={recordMap}
+        recordMapOld={recordMapOld}
         fullWidth={fullWidth}
       />
 
@@ -83,11 +84,12 @@ export async function getStaticProps({ params: { slug } }) {
   if (!post) return { notFound: true }
 
   const postBlocks = await getPostBlocksWithChildren(post.id)
-
+  const postBlocksOld = await getPostBlockOld(post.id)
   return {
     props: {
       post,
       recordMap: transformToRecordMap(postBlocks),
+      recordMapOld: postBlocksOld,
     },
     revalidate: 1
   }

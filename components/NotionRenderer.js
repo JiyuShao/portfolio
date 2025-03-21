@@ -113,12 +113,34 @@ export default function NotionRenderer(props) {
     'sans-serif': FONTS_SANS,
     'serif': FONTS_SERIF
   }[config.font]
-  console.log('###PageData',
-    Object.values(props.recordMap.block)
+
+  globalThis.recordMap = props.recordMap;
+  globalThis.recordMapOld = props.recordMapOld;
+  globalThis.logUnimplementedBlocks = () => {
+    const unimplementedBlocksNew = Object.values(props.recordMap.block)
       .map(block => block.value)
       .filter(block => !Object.keys(TYPE_TRANSFORM_MAP).includes(block.rawBlock.type)
       )
-  )
+    const unimplementedBlocksOld = unimplementedBlocksNew.map(block => props.recordMapOld.block[block.id].value)
+    console.log('### Unimplemented Blocks New', unimplementedBlocksNew)
+    console.log('### Unimplemented Blocks Old', unimplementedBlocksOld)
+  }
+  globalThis.logBlocksByType = (type) => {
+    const unimplementedBlocksNew = Object.values(props.recordMap.block)
+      .map(block => block.value)
+      .filter(block => [type].includes(block.rawBlock.type)
+      )
+    const unimplementedBlocksOld = unimplementedBlocksNew.map(block => props.recordMapOld.block[block.id].value)
+    console.log(`### Blocks(${type}) New`, unimplementedBlocksNew)
+    console.log(`### Blocks(${type}) Old`, unimplementedBlocksOld)
+  }
+  globalThis.logBlocksById = (id) => {
+    const blockNew = props.recordMap.block[id].value
+    const blockOld = props.recordMapOld.block[id].value
+    console.log(`### Block(${id}) New`, blockNew)
+    console.log(`### Block(${id}) Old`, blockOld)
+  }
+  globalThis.logUnimplementedBlocks()
 
   // Mark block types to be custom rendered by appending a suffix
   if (props.recordMap) {
