@@ -10,16 +10,14 @@ const Tags = ({ tags, currentTag }) => {
           return (
             <li
               key={key}
-              className={`mr-3 font-medium border whitespace-nowrap dark:text-gray-300 ${
-                selected
-                  ? 'text-white bg-primary-400 dark:bg-primary-400'
-                  : 'bg-gray-100 border-gray-100 text-gray-400 dark:bg-night dark:border-gray-800'
-              }`}
+              className={`flex items-center mr-3 px-4 py-2 font-medium border whitespace-nowrap dark:text-gray-300 ${selected
+                ? 'text-white bg-primary-400 dark:bg-primary-500 border-none'
+                : 'bg-gray-100 border-gray-100 text-gray-400 dark:bg-night dark:border-gray-800'
+                }`}
             >
               <Link
                 key={key}
                 href={selected ? '/search' : `/tag/${encodeURIComponent(key)}`}
-                className="px-4 py-2 block"
               >
                 {`${key} (${tags[key]})`}
               </Link>

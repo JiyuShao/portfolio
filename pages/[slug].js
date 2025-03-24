@@ -85,6 +85,7 @@ export async function getStaticProps({ params: { slug } }) {
 
   const postBlocks = await getPostBlocksWithChildren(post.id)
   const postBlocksOld = await getPostBlockOld(post.id)
+
   return {
     props: {
       post,

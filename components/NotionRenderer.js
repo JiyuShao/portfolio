@@ -114,8 +114,8 @@ export default function NotionRenderer(props) {
     'serif': FONTS_SERIF
   }[config.font]
 
-  globalThis.recordMap = props.recordMap;
-  globalThis.recordMapOld = props.recordMapOld;
+  globalThis.dataNew = props.recordMap;
+  globalThis.dataOld = props.recordMapOld;
   globalThis.logUnimplementedBlocks = () => {
     const unimplementedBlocksNew = Object.values(props.recordMap.block)
       .map(block => block.value)
