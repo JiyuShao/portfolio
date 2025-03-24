@@ -1,15 +1,16 @@
 import { clientConfig } from '@/lib/server/config'
-import { transformToRecordMap } from '@/lib/notion/transformToRecordMap'
+import { transformToRecordMap, TYPE_TRANSFORM_MAP } from '@/lib/notion/transformToRecordMap'
 import { useRouter } from 'next/router'
 import cn from 'classnames'
 import { getAllPosts, getPostBlocksWithChildren, getPostBlockOld } from '@/lib/notion'
 import { useLocale } from '@/lib/locale'
-import { useConfig } from '@/lib/config'
+import { useConfig, getConfig } from '@/lib/config'
 import Container from '@/components/Container'
 import Post from '@/components/Post'
 import Comments from '@/components/Comments'
 
-export default function BlogPost({ post, recordMap, recordMapOld }) {
+export default function BlogPost(props) {
+  const { post, postBlocks, recordMapOld } = props
   const router = useRouter()
   const BLOG = useConfig()
   const locale = useLocale()
@@ -18,6 +19,44 @@ export default function BlogPost({ post, recordMap, recordMapOld }) {
   if (router.isFallback) return null
 
   const fullWidth = post.fullWidth ?? false
+  const recordMap = transformToRecordMap(postBlocks)
+
+  globalThis.dataNew = recordMap;
+  globalThis.dataOld = recordMapOld;
+  globalThis.logUnimplementedBlocks = () => {
+    const unimplementedBlocksNew = Object.values(recordMap.block)
+      .map(block => block.value)
+      .filter(block => !Object.keys(TYPE_TRANSFORM_MAP).includes(block.rawBlock.type)
+      )
+    console.log('### Unimplemented Blocks New', unimplementedBlocksNew)
+    if (!recordMapOld) {
+      return
+    }
+    const unimplementedBlocksOld = unimplementedBlocksNew.map(block => recordMapOld.block[block.id].value)
+    console.log('### Unimplemented Blocks Old', unimplementedBlocksOld)
+  }
+  globalThis.logBlocksByType = (type) => {
+    const unimplementedBlocksNew = Object.values(recordMap.block)
+      .map(block => block.value)
+      .filter(block => [type].includes(block.rawBlock.type)
+      )
+    console.log(`### Blocks(${type}) New`, unimplementedBlocksNew)
+    if (!recordMapOld) {
+      return
+    }
+    const unimplementedBlocksOld = unimplementedBlocksNew.map(block => recordMapOld.block[block.id].value)
+    console.log(`### Blocks(${type}) Old`, unimplementedBlocksOld)
+  }
+  globalThis.logBlocksById = (id) => {
+    const blockNew = recordMap.block[id].value
+    console.log(`### Block(${id}) New`, blockNew)
+    if (!recordMapOld) {
+      return
+    }
+    const blockOld = recordMapOld.block[id].value
+    console.log(`### Block(${id}) Old`, blockOld)
+  }
+  globalThis.logUnimplementedBlocks()
 
   return (
     <Container
@@ -79,17 +118,18 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params: { slug } }) {
   const posts = await getAllPosts({ includePages: true })
+  const config = await getConfig()
   const post = posts.find(t => t.slug === slug)
 
   if (!post) return { notFound: true }
 
   const postBlocks = await getPostBlocksWithChildren(post.id)
-  const postBlocksOld = await getPostBlockOld(post.id)
+  const postBlocksOld = !config.isProd ? await getPostBlockOld(post.id) : null
 
   return {
     props: {
       post,
-      recordMap: transformToRecordMap(postBlocks),
+      postBlocks,
       recordMapOld: postBlocksOld,
     },
     revalidate: 1

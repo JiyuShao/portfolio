@@ -5,7 +5,6 @@ import { getTextContent } from 'notion-utils'
 import { FONTS_SANS, FONTS_SERIF } from '@/consts'
 import { useConfig } from '@/lib/config'
 import Toggle from '@/components/notion-blocks/Toggle'
-import { TYPE_TRANSFORM_MAP } from '@/lib/notion/transformToRecordMap'
 
 // Lazy-load some heavy components & override the renderers of some block types
 const components = {
@@ -113,34 +112,6 @@ export default function NotionRenderer(props) {
     'sans-serif': FONTS_SANS,
     'serif': FONTS_SERIF
   }[config.font]
-
-  globalThis.dataNew = props.recordMap;
-  globalThis.dataOld = props.recordMapOld;
-  globalThis.logUnimplementedBlocks = () => {
-    const unimplementedBlocksNew = Object.values(props.recordMap.block)
-      .map(block => block.value)
-      .filter(block => !Object.keys(TYPE_TRANSFORM_MAP).includes(block.rawBlock.type)
-      )
-    const unimplementedBlocksOld = unimplementedBlocksNew.map(block => props.recordMapOld.block[block.id].value)
-    console.log('### Unimplemented Blocks New', unimplementedBlocksNew)
-    console.log('### Unimplemented Blocks Old', unimplementedBlocksOld)
-  }
-  globalThis.logBlocksByType = (type) => {
-    const unimplementedBlocksNew = Object.values(props.recordMap.block)
-      .map(block => block.value)
-      .filter(block => [type].includes(block.rawBlock.type)
-      )
-    const unimplementedBlocksOld = unimplementedBlocksNew.map(block => props.recordMapOld.block[block.id].value)
-    console.log(`### Blocks(${type}) New`, unimplementedBlocksNew)
-    console.log(`### Blocks(${type}) Old`, unimplementedBlocksOld)
-  }
-  globalThis.logBlocksById = (id) => {
-    const blockNew = props.recordMap.block[id].value
-    const blockOld = props.recordMapOld.block[id].value
-    console.log(`### Block(${id}) New`, blockNew)
-    console.log(`### Block(${id}) Old`, blockOld)
-  }
-  globalThis.logUnimplementedBlocks()
 
   // Mark block types to be custom rendered by appending a suffix
   if (props.recordMap) {
