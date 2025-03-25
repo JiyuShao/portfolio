@@ -16,6 +16,33 @@ A static website build on top of Notion and Nextjs, Modified from [Craig Hart's 
 - **Style**: Tailwind CSS and `@tailwindcss/jit` compiler
 - **Comments**: Gitalk, Cusdis and more
 
+Support List
+
+- [x] page => page
+- [x] heading_1 => header
+- [x] heading_2 => sub_header
+- [x] heading_3 => sub_sub_header
+- [x] paragraph => text
+- [x] bulleted_list_item => bulleted_list
+- [x] numbered_list_item => numbered_list
+- [x] toggle => toggle
+- [x] code => code
+- [x] bookmark => bookmark
+- [x] image => image
+- [x] callout => callout
+- [x] table => table
+- [x] table_row => table_row
+- [x] table_row => table_row
+- [x] column_list
+- [x] column
+- [x] quote
+- [ ] divider
+- [ ] table_of_contents
+- [ ] child_page
+- [ ] child_database
+- [ ] link_to_page
+- unsupported: other unsupported blocks...
+
 ## Highlights ✨
 
 **🚀 &nbsp;Fast and responsive**

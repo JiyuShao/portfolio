@@ -1,5 +1,5 @@
 const BLOG = {
-  title: 'Jiyu Shao\'s Blog',
+  title: 'Jiyu Shao',
   author: 'Jiyu Shao',
   email: 'jiyu.shao@gmail.com',
   link: 'https://jiyu-shao.vercel.app',

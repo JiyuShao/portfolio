@@ -32,7 +32,7 @@ export default function BlogPost(props) {
     if (!recordMapOld) {
       return
     }
-    const unimplementedBlocksOld = unimplementedBlocksNew.map(block => recordMapOld.block[block.id].value)
+    const unimplementedBlocksOld = unimplementedBlocksNew.map(block => recordMapOld.block[block.id]?.value)
     console.log('### Unimplemented Blocks Old', unimplementedBlocksOld)
   }
   globalThis.logBlocksByType = (type) => {
@@ -44,7 +44,7 @@ export default function BlogPost(props) {
     if (!recordMapOld) {
       return
     }
-    const unimplementedBlocksOld = unimplementedBlocksNew.map(block => recordMapOld.block[block.id].value)
+    const unimplementedBlocksOld = unimplementedBlocksNew.map(block => recordMapOld.block[block.id]?.value)
     console.log(`### Blocks(${type}) Old`, unimplementedBlocksOld)
   }
   globalThis.logBlocksById = (id) => {
@@ -53,7 +53,7 @@ export default function BlogPost(props) {
     if (!recordMapOld) {
       return
     }
-    const blockOld = recordMapOld.block[id].value
+    const blockOld = recordMapOld.block[id]?.value
     console.log(`### Block(${id}) Old`, blockOld)
   }
   globalThis.logUnimplementedBlocks()

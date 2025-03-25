@@ -22,11 +22,18 @@ export default function ThemeToggle() {
   }, [setTheme])
 
   useIsomorphicLayoutEffect(() => {
+    if (typeof window === 'undefined') {
+      return
+    }
     const theme = localStorage.theme
     if (theme === 'light' || theme === 'dark') {
       updateTheme(theme)
     }
   }, [])
+
+  if (!theme) {
+    return null;
+  }
 
   return (
     <li
