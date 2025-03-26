@@ -4,7 +4,7 @@ import cn from 'classnames'
 
 export default function TableOfContents ({ recordMap, className, style }) {
   const collectionId = Object.keys(recordMap.collection)[0]
-  const page = Object.values(recordMap.block).find(block => block.value.parent_id === collectionId).value
+  const page = recordMap.block[collectionId].value
   const nodes = getPageTableOfContents(page, recordMap)
 
   if (!nodes.length) return null
