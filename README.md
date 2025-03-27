@@ -36,7 +36,7 @@ Support List
 - [x] column_list
 - [x] column
 - [x] quote
-- [ ] divider
+- [x] divider
 - [ ] table_of_contents
 - [ ] child_page
 - [ ] child_database
