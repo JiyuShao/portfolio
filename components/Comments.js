@@ -53,7 +53,7 @@ const Comments = ({ frontMatter }) => {
         />
       )}
       {BLOG.comment && BLOG.comment.provider === 'utterances' && (
-        <UtterancesComponent issueTerm={frontMatter.id} />
+        <UtterancesComponent issueTerm={frontMatter.slug} />
       )}
       {BLOG.comment && BLOG.comment.provider === 'cusdis' && (
         <CusdisComponent

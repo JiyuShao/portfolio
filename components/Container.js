@@ -37,7 +37,7 @@ const Container = ({ children, layout, fullWidth, ...customMeta }) => {
         <meta property="og:description" content={meta.description} />
         <meta
           property="og:url"
-          content={meta.slug ? `${url}/${meta.slug}` : url}
+          content={meta.slug ? `${url}${meta.slug}` : url}
         />
         <meta
           property="og:image"

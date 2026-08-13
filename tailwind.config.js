@@ -1,6 +1,7 @@
 import { config } from './lib/server/config'
 import { FONTS_SANS, FONTS_SERIF } from './consts'
 import colors from 'tailwindcss/colors'
+import typography from '@tailwindcss/typography'
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -35,5 +36,5 @@ export default {
   variants: {
     extend: {}
   },
-  plugins: []
+  plugins: [typography]
 }
