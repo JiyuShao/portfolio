@@ -38,3 +38,7 @@ yarn-error.log*
 public/robots.txt
 public/sitemap.xml
 .env*.local
+
+# publication manifest (fetched at build, never committed)
+/data
+/public/attachments

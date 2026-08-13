@@ -1,4 +1,4 @@
-import { getAllPosts, getAllTagsFromPosts } from '@/lib/notion'
+import { getAllPosts, getAllTagsFromPosts } from '@/lib/manifest.mjs'
 import SearchLayout from '@/layouts/search'
 
 export default function Tag ({ tags, posts, currentTag }) {
@@ -17,8 +17,7 @@ export async function getStaticProps ({ params }) {
       tags,
       posts: filteredPosts,
       currentTag
-    },
-    revalidate: 1
+    }
   }
 }
 
@@ -27,6 +26,6 @@ export async function getStaticPaths () {
   const tags = getAllTagsFromPosts(posts)
   return {
     paths: Object.keys(tags).map(tag => ({ params: { tag } })),
-    fallback: true
+    fallback: false
   }
 }

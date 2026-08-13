@@ -4,7 +4,7 @@ import { clientConfig } from '@/lib/server/config'
 import Container from '@/components/Container'
 import BlogPost from '@/components/BlogPost'
 import Hero from '@/components/Hero'
-import { getAllPosts } from '@/lib/notion'
+import { getAllPosts } from '@/lib/manifest.mjs'
 import { useConfig } from '@/lib/config'
 import { useLocale } from '@/lib/locale'
 
@@ -17,8 +17,7 @@ export async function getStaticProps() {
     props: {
       postsToShow,
       showNext
-    },
-    revalidate: 1
+    }
   }
 }
 

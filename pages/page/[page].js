@@ -3,7 +3,7 @@ import { config } from '@/lib/server/config'
 import Container from '@/components/Container'
 import BlogPost from '@/components/BlogPost'
 import Pagination from '@/components/Pagination'
-import { getAllPosts } from '@/lib/notion'
+import { getAllPosts } from '@/lib/manifest.mjs'
 
 const Page = ({ postsToShow, page, showNext }) => {
   return (
@@ -29,8 +29,7 @@ export async function getStaticProps (context) {
       page, // Current Page
       postsToShow,
       showNext
-    },
-    revalidate: 1
+    }
   }
 }
 
@@ -43,7 +42,7 @@ export async function getStaticPaths () {
     paths: Array.from({ length: totalPages - 1 }, (_, i) => ({
       params: { page: '' + (i + 2) }
     })),
-    fallback: true
+    fallback: false
   }
 }
 

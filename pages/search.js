@@ -1,4 +1,4 @@
-import { getAllPosts, getAllTagsFromPosts } from '@/lib/notion'
+import { getAllPosts, getAllTagsFromPosts } from '@/lib/manifest.mjs'
 import SearchLayout from '@/layouts/search'
 
 export default function search ({ tags, posts }) {
@@ -11,7 +11,6 @@ export async function getStaticProps () {
     props: {
       tags,
       posts
-    },
-    revalidate: 1
+    }
   }
 }

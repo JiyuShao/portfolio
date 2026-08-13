@@ -13,11 +13,14 @@
     "url": "https://github.com/JiyuShao"
   },
   "scripts": {
+    "predev": "node scripts/fetch-manifest.mjs",
     "dev": "next dev",
+    "prebuild": "node scripts/fetch-manifest.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postbuild": "next-sitemap --config next-sitemap.config.js"
+    "postbuild": "next-sitemap --config next-sitemap.config.js",
+    "test": "node --test scripts/fetch-manifest.test.mjs lib/manifest.test.mjs"
   },
   "dependencies": {
     "@notionhq/client": "^2.3.0",
