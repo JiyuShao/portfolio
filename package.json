@@ -23,14 +23,12 @@
     "test": "node --test scripts/fetch-manifest.test.mjs lib/manifest.test.mjs lib/markdown.test.mjs lib/redirects.test.mjs"
   },
   "dependencies": {
-    "@notionhq/client": "^2.3.0",
     "classnames": "^2.3.2",
     "dayjs": "^1.11.10",
     "feed": "^4.2.2",
     "gitalk": "^1.8.0",
     "highlight.js": "^11.9.0",
     "next": "^14.0.2",
-    "notion-utils": "^7.1.6",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-cusdis": "^2.1.3",

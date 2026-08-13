@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import cn from 'classnames'
 // import BlogPost from './BlogPost'
 
-const Container = ({ children, layout, fullWidth, ...customMeta }) => {
+const Container = ({ children, layout, ...customMeta }) => {
   const BLOG = useConfig()
 
   const url = BLOG.path.length ? `${BLOG.link}/${BLOG.path}` : BLOG.link
@@ -65,15 +65,14 @@ const Container = ({ children, layout, fullWidth, ...customMeta }) => {
       >
         <Header
           navBarTitle={layout === 'blog' ? meta.title : null}
-          fullWidth={fullWidth}
         />
         <main className={cn(
           'flex-grow transition-all',
-          layout !== 'blog' && ['self-center px-4', fullWidth ? 'md:px-24' : 'w-full max-w-3xl']
+          layout !== 'blog' && ['self-center px-4', 'w-full max-w-3xl']
         )}>
           {children}
         </main>
-        <Footer fullWidth={fullWidth} />
+        <Footer />
       </div>
     </div>
   )

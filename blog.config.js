@@ -18,10 +18,9 @@ const BLOG = {
   githubLink: 'https://github.com/JiyuShao',
   socialLink: 'https://github.com/JiyuShao',
   seo: {
-    keywords: ['Blog', 'Website', 'Notion'],
+    keywords: ['Blog', 'Website'],
     googleSiteVerification: '' // Remove the value or replace it with your own google site verification code
   },
-  notionDatabaseId: process.env.NOTION_DATABASE_ID, // DO NOT CHANGE THIS！！！
   analytics: {
     provider: '', // Currently we support Google Analytics and Ackee, please fill with 'ga' or 'ackee', leave it empty to disable it.
     ackeeConfig: {

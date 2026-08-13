@@ -29,13 +29,12 @@ const Comments = ({ frontMatter }) => {
   const router = useRouter()
   const BLOG = useConfig()
   const { theme } = useTheme()
-  const fullWidth = frontMatter.fullWidth ?? false
 
   return (
     <div
       className={cn(
         'px-4 font-medium text-gray-500 dark:text-gray-400 my-5',
-        fullWidth ? 'md:px-24' : 'mx-auto max-w-3xl',
+        'mx-auto max-w-3xl',
       )}
     >
       {BLOG.comment && BLOG.comment.provider === 'gitalk' && (

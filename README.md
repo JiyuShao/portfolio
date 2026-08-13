@@ -53,7 +53,8 @@ Support List
 **🤖 &nbsp;Deploy instantly**
 
 - Deploy on Vercel in minutes
-- Incremental regeneration and no need to redeploy after update the content in notion
+- Static pages generated from the published content Manifest (Notebook publish pipeline)
+- No content API at runtime: builds fetch a checksum-verified artifact
 
 **🚙 &nbsp;Fully functional**
 
@@ -70,13 +71,11 @@ Support List
 ## Quick Start
 
 - Star this repo 😉
-- Duplicate [this Notion template](https://jiyu-shao.notion.site/317f32f945a7495bab885276ed049c82?v=cbdf0099b8984dbf93e89a64bef5b72a&pvs=4), and share it to the public
 - [Fork](https://github.com/craigary/nobelium/fork) this project
 - Customize `blog.config.js`
-- _(Optional)_ Replace `favicon.svg`, and `favicon.ico` in `/public` folder with your own
-- Deploy on [Vercel](https://vercel.com), set following environment variables:
-  - `NOTION_API_KEY` (Required): The API key of your Notion account
-  - `NOTION_DATABASE_ID` (Required): The ID of the Notion database you previously shared to the web, usually has 32 digits after your workspace address
+- Publish the content Manifest first (Notebook `publish` CLI), then deploy on [Vercel](https://vercel.com) with these environment variables:
+  - `MANIFEST_GITHUB_TOKEN` (Required): a read-only fine-grained GitHub token for the Notebook repo Releases
+  - `MANIFEST_TAG` (Optional): pin a release tag instead of fetching the latest
 - **That's it!** Easy-peasy?
 
 ## Special Thanks
