@@ -20,7 +20,7 @@
     "start": "next start",
     "lint": "next lint",
     "postbuild": "next-sitemap --config next-sitemap.config.js",
-    "test": "node --test scripts/fetch-manifest.test.mjs lib/manifest.test.mjs lib/markdown.test.mjs"
+    "test": "node --test scripts/fetch-manifest.test.mjs lib/manifest.test.mjs lib/markdown.test.mjs lib/redirects.test.mjs"
   },
   "dependencies": {
     "@notionhq/client": "^2.3.0",

@@ -2,6 +2,10 @@ module.exports = {
   eslint: {
     dirs: ['components', 'layouts', 'lib', 'pages']
   },
+  async redirects() {
+    const { loadRedirects } = await import('./lib/redirects.mjs');
+    return loadRedirects();
+  },
   async headers() {
     return [
       {
