@@ -32,7 +32,7 @@ export default function Post({ post, markdown, attachments }) {
       <div className="self-stretch -mt-4 flex flex-col items-center">
         <div className="flex-none w-full max-w-3xl px-4">
           <div className="markdown-body prose dark:prose-invert max-w-none">
-            {renderMarkdown(markdown, attachments)}
+            {renderMarkdown(markdown, attachments, { title: post.title })}
           </div>
         </div>
       </div>

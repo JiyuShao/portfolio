@@ -163,3 +163,42 @@ nav {
 .capture-pointer-events * {
   @apply pointer-events-none;
 }
+
+/* Code blocks keep the GitHub light palette in both light and dark mode —
+   prose-invert's dark background would swallow hljs's dark token colors. */
+.markdown-body pre {
+  background-color: #f6f8fa !important;
+  border-color: #e1e4e8 !important;
+}
+.markdown-body pre code {
+  color: #24292e !important;
+}
+
+/* Notion link-preview callouts ([!info] / [!important] blockquotes) as styled boxes. */
+.markdown-body .callout {
+  @apply my-4 rounded-lg border-l-4 border-gray-300 bg-gray-100 px-4 py-3;
+}
+.markdown-body .callout-info {
+  @apply border-sky-500 bg-sky-50;
+}
+.markdown-body .callout-important {
+  @apply border-amber-500 bg-amber-50;
+}
+.markdown-body .callout > p {
+  @apply my-1;
+}
+.dark .markdown-body .callout {
+  @apply border-gray-600 bg-gray-800;
+}
+.dark .markdown-body .callout-info {
+  @apply border-sky-400 bg-sky-950;
+}
+.dark .markdown-body .callout-important {
+  @apply border-amber-400 bg-amber-950;
+}
+
+/* Wide GFM tables scroll horizontally on narrow screens instead of overflowing. */
+.markdown-body table {
+  display: block;
+  overflow-x: auto;
+}
