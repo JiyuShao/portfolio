@@ -7,7 +7,7 @@ const BLOG = {
   lang: 'zh-CN', // ['en-US', 'zh-CN', 'zh-HK', 'zh-TW', 'ja-JP', 'es-ES']
   font: 'sans-serif', // ['sans-serif', 'serif']
   lightBackground: '#f8f8f8', // use hex value, don't forget '#' e.g #fffefc
-  darkBackground: '#1c1c1c', // use hex value, don't forget '#'
+  darkBackground: '#09090b', // zinc-950，与 zinc 暗色体系统一
   path: '', // leave this empty unless you want to deploy project in a folder
   since: 2018, // If leave this empty, current year will be used.
   postsPerPage: 7,

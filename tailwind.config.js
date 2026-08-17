@@ -11,7 +11,7 @@ export default {
     extend: {
       colors: {
         primary: colors.red,
-        gray: colors.neutral,
+        gray: colors.zinc,
         day: {
           DEFAULT: config.lightBackground || '#ffffff'
         },

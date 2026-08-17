@@ -1,10 +1,12 @@
 import FormattedDate from "@/components/FormattedDate";
 import TagItem from '@/components/TagItem'
+import Reveal from '@/components/Reveal'
 import Link from "next/link";
 
 const BlogPost = ({ post }) => {
   return (
-    <div key={post.id} className="py-6 md:py-8 space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
+    <Reveal>
+      <div key={post.id} className="py-6 md:py-8 space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
       <div className="flex-shrink-0 text-base font-medium leading-6 text-gray-600 dark:text-gray-400">
         <FormattedDate date={post.date} />
       </div>
@@ -35,7 +37,8 @@ const BlogPost = ({ post }) => {
           </Link>
         </div>
       </div>
-    </div>
+      </div>
+    </Reveal>
   );
 };
 

@@ -1,12 +1,16 @@
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useLocale } from '@/lib/locale'
 import { useConfig } from '@/lib/config'
 import Container from '@/components/Container'
 import Post from '@/components/Post'
 import Comments from '@/components/Comments'
+import ReadingProgress from '@/components/ReadingProgress'
+import Reveal from '@/components/Reveal'
 import { getAllPosts, getPostBySlug } from '@/lib/manifest.mjs'
+import { getToc } from '@/lib/toc.mjs'
 
-export default function BlogPost({ post, markdown, attachments }) {
+export default function BlogPost({ post, markdown, attachments, toc, prev, next }) {
   const router = useRouter()
   const BLOG = useConfig()
   const locale = useLocale()
@@ -19,7 +23,9 @@ export default function BlogPost({ post, markdown, attachments }) {
       slug={post.slug}
       type="article"
     >
-      <Post post={post} markdown={markdown} attachments={attachments} />
+      <ReadingProgress />
+
+      <Post post={post} markdown={markdown} attachments={attachments} toc={toc} />
 
       {/* Back and Top */}
       <div className="px-4 flex justify-between font-medium text-gray-500 dark:text-gray-400 my-5 mx-auto max-w-3xl">
@@ -44,6 +50,22 @@ export default function BlogPost({ post, markdown, attachments }) {
         </a>
       </div>
 
+      {/* Prev / Next */}
+      <Reveal className="mx-auto max-w-3xl px-4 mb-6 grid gap-4 sm:grid-cols-2">
+        {prev ? (
+          <Link href={prev.slug} className="block rounded-lg border border-gray-200 p-3 hover:border-primary-400 dark:border-zinc-700 dark:hover:border-primary-500">
+            <p className="text-xs text-gray-500 dark:text-gray-400">← 上一篇</p>
+            <p className="truncate font-medium text-gray-900 dark:text-gray-100">{prev.title}</p>
+          </Link>
+        ) : <span className="hidden sm:block" />}
+        {next && (
+          <Link href={next.slug} className="block rounded-lg border border-gray-200 p-3 text-right hover:border-primary-400 dark:border-zinc-700 dark:hover:border-primary-500">
+            <p className="text-xs text-gray-500 dark:text-gray-400">下一篇 →</p>
+            <p className="truncate font-medium text-gray-900 dark:text-gray-100">{next.title}</p>
+          </Link>
+        )}
+      </Reveal>
+
       <Comments frontMatter={post} />
     </Container>
   )
@@ -60,11 +82,17 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params: { slug } }) {
   const { post, item } = await getPostBySlug('/' + slug.join('/'))
   if (!post) return { notFound: true }
+  const markdown = item.body ?? ''
+  const posts = await getAllPosts({ includePages: true })
+  const index = posts.findIndex(p => p.slug === post.slug)
   return {
     props: {
       post,
-      markdown: item.body ?? '',
-      attachments: item.attachments ?? []
+      markdown,
+      attachments: item.attachments ?? [],
+      toc: getToc(markdown, { title: post.title }),
+      prev: index > 0 ? posts[index - 1] : null,
+      next: index >= 0 && index < posts.length - 1 ? posts[index + 1] : null
     }
   }
 }

@@ -179,26 +179,104 @@ nav {
   @apply my-4 rounded-lg border-l-4 border-gray-300 bg-gray-100 px-4 py-3;
 }
 .markdown-body .callout-info {
-  @apply border-sky-500 bg-sky-50;
+  @apply border-gray-400 bg-gray-100;
 }
 .markdown-body .callout-important {
-  @apply border-amber-500 bg-amber-50;
+  @apply border-primary-500 bg-red-50;
 }
 .markdown-body .callout > p {
   @apply my-1;
 }
 .dark .markdown-body .callout {
-  @apply border-gray-600 bg-gray-800;
+  @apply border-zinc-700 bg-zinc-900;
 }
 .dark .markdown-body .callout-info {
-  @apply border-sky-400 bg-sky-950;
+  @apply border-zinc-600 bg-zinc-900;
 }
 .dark .markdown-body .callout-important {
-  @apply border-amber-400 bg-amber-950;
+  @apply border-primary-400 bg-red-950/40;
+}
+
+/* Unified primary-red accent: text selection, prose links, images. */
+::selection {
+  background-color: #ef4444;
+  color: #fff;
+}
+.dark ::selection {
+  background-color: #f87171;
+  color: #18181b;
+}
+.markdown-body a {
+  color: #ef4444;
+  text-decoration-color: rgba(239, 68, 68, 0.4);
+  transition: color 0.15s ease;
+}
+.markdown-body a:hover {
+  color: #dc2626;
+}
+.dark .markdown-body a {
+  color: #f87171;
+}
+.dark .markdown-body a:hover {
+  color: #fca5a5;
+}
+.markdown-body img {
+  border-radius: 0.5rem;
+}
+
+/* Scroll-reveal: visible by default (SSR/no-JS), fade-up once revealed. */
+.reveal-hide {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal-hide {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 /* Wide GFM tables scroll horizontally on narrow screens instead of overflowing. */
 .markdown-body table {
   display: block;
   overflow-x: auto;
+}
+
+/* TOC anchor jumps scroll smoothly; native behavior on reduced-motion. */
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Floating TOC: fixed in the right whitespace beside the centered 48rem
+   article column, so the article layout is identical with or without a TOC.
+   Only shown when the viewport is wide enough for the whitespace (>=1400px). */
+.toc-sidebar {
+  display: none;
+}
+@media (min-width: 1400px) {
+  .toc-sidebar {
+    display: block;
+    position: fixed;
+    top: 6rem;
+    right: max(1.5rem, calc(50vw - 24rem - 15rem - 2rem));
+    width: 15rem;
+    max-height: 75vh;
+    overflow-y: auto;
+    padding-bottom: 2rem;
+  }
+}
+
+/* Theme switch: suppress transitions while .changing-theme is on <html>,
+   so light/dark flip instantly instead of animating through a half state. */
+.changing-theme *,
+.changing-theme *::before,
+.changing-theme *::after {
+  transition: none !important;
 }
