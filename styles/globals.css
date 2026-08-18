@@ -486,6 +486,38 @@ html .markdown-body {
   line-height: inherit;
 }
 
+/* Notion 导出的章节标题用 `# 标题`（h1），与页面 hero 的 5xl 标题同级竞争。
+   视觉降级为章节大标题：小于页面标题，但仍是正文里最重的层级。
+   html 前缀压过 github-markdown-css 的同特异性 h1（2em + border-bottom）。 */
+html .markdown-body h1,
+html .markdown-body h2 {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+html .markdown-body h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+/* 正文首个渲染标题带红色渐变竖条，作为 hero 分隔线之后的“正文起点”
+   锚点（dedupe 掉的重复 h1 不算，见 markdown.mjs）。 */
+.markdown-body .first-heading {
+  position: relative;
+  padding-left: 1rem;
+}
+.markdown-body .first-heading::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.25em;
+  bottom: 0.25em;
+  width: 3px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #ef4444, rgba(239, 68, 68, 0.15));
+}
+
 /* Code fences get a subtle red-tinted glow on hover. */
 .markdown-body pre {
   transition: border-color 0.2s ease, box-shadow 0.2s ease;

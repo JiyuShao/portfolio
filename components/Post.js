@@ -5,6 +5,14 @@ import Toc from '@/components/Toc'
 import Reveal from '@/components/Reveal'
 import { renderMarkdown } from '@/lib/markdown.mjs'
 
+/** Human-readable section name for the hero eyebrow, from the canonical slug. */
+function sectionLabel(slug) {
+  if (slug.startsWith('/topics')) return '专题'
+  if (slug.startsWith('/learning')) return '学习'
+  if (slug.startsWith('/archive')) return '归档'
+  return '文章'
+}
+
 /**
  * A post renderer: header metadata + markdown body.
  * With a TOC (>= 2 headings) the desktop layout widens to a two-column grid
@@ -32,10 +40,15 @@ export default function Post({ post, markdown, attachments, toc = [] }) {
   )
   const header = (
     <>
-      <h1 className="w-full max-w-3xl px-4 font-bold text-4xl tracking-tight text-black dark:text-white">
+      {/* Hero: section eyebrow, oversized title, meta row, then a red gradient
+          hairline that hands off to the body. */}
+      <p className="w-full max-w-3xl px-4 mb-3 text-xs font-semibold tracking-[0.25em] text-primary-500 dark:text-primary-400">
+        {sectionLabel(post.slug)} · {new Date(post.date).getFullYear()}
+      </p>
+      <h1 className="w-full max-w-3xl px-4 font-extrabold text-5xl tracking-tighter text-black dark:text-white">
         {post.title}
       </h1>
-      <nav className="w-full max-w-3xl px-4 flex mt-10 items-start text-gray-500 dark:text-gray-400">
+      <nav className="w-full max-w-3xl px-4 flex mt-6 items-start text-gray-500 dark:text-gray-400">
         <div className="mr-2 mb-4 md:ml-0">
           <FormattedDate date={post.date} />
         </div>
@@ -47,8 +60,9 @@ export default function Post({ post, markdown, attachments, toc = [] }) {
           </div>
         )}
       </nav>
+      <div className="w-full max-w-3xl px-4 mt-4 h-px bg-gradient-to-r from-primary-500/70 via-primary-500/20 to-transparent" />
       {showToc && (
-        <div className="w-full max-w-3xl px-4 mb-6 lg:hidden">
+        <div className="w-full max-w-3xl px-4 mb-6 mt-8 lg:hidden">
           <Toc toc={toc} variant="mobile" />
         </div>
       )}
