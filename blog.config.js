@@ -6,7 +6,7 @@ const BLOG = {
   description: 'jiyu-shao.vercel.app',
   lang: 'zh-CN', // ['en-US', 'zh-CN', 'zh-HK', 'zh-TW', 'ja-JP', 'es-ES']
   font: 'sans-serif', // ['sans-serif', 'serif']
-  lightBackground: '#f8f8f8', // use hex value, don't forget '#' e.g #fffefc
+  lightBackground: '#ffffff', // 纯白，与浅灰代码块形成边界
   darkBackground: '#09090b', // zinc-950，与 zinc 暗色体系统一
   path: '', // leave this empty unless you want to deploy project in a folder
   since: 2018, // If leave this empty, current year will be used.
