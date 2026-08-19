@@ -1,4 +1,5 @@
 exports.FONTS_SANS = [
+  '"DM Sans Variable"',
   '"IBM Plex Sans"',
   'ui-sans-serif',
   'system-ui',
@@ -26,6 +27,8 @@ exports.FONTS_SANS = [
   'sans-serif'
 ]
 exports.FONTS_SERIF = [
+  '"Newsreader Variable"',
+  '"LXGW WenKai"',
   '"Source Serif"',
   'ui-serif',
   'Georgia',

@@ -2,7 +2,7 @@ import { useConfig } from '@/lib/config'
 import useTheme from '@/lib/theme'
 import { useEffect } from 'react'
 
-const Utterances = ({ issueTerm, layout }) => {
+const Utterances = ({ issueTerm }) => {
   const BLOG = useConfig()
   const { theme } = useTheme()
 
@@ -13,6 +13,7 @@ const Utterances = ({ issueTerm, layout }) => {
         : 'github-dark'
     const script = document.createElement('script')
     const anchor = document.getElementById('comments')
+    if (!anchor) return undefined
     script.setAttribute('src', 'https://utteranc.es/client.js')
     script.setAttribute('crossorigin', 'anonymous')
     script.setAttribute('async', true)
@@ -23,16 +24,9 @@ const Utterances = ({ issueTerm, layout }) => {
     return () => {
       anchor.innerHTML = ''
     }
-  })
+  }, [BLOG.comment.utterancesConfig.repo, issueTerm, theme])
   return (
-    <>
-      <div
-        id="comments"
-        className="md:-ml-16"
-      >
-        <div className="utterances-frame"></div>
-      </div>
-    </>
+    <div id="comments" className="article-comments-embed" />
   )
 }
 

@@ -7,44 +7,6 @@ export default function MyDocument() {
   return (
     <Html lang={config.lang}>
       <Head>
-        {config.font && config.font === 'serif'
-          ? (
-            <>
-              <link
-                rel="preload"
-                href="/fonts/SourceSerif.var.woff2"
-                as="font"
-                type="font/woff2"
-                crossOrigin="anonymous"
-              />
-              <link
-                rel="preload"
-                href="/fonts/SourceSerif-Italic.var.woff2"
-                as="font"
-                type="font/woff2"
-                crossOrigin="anonymous"
-              />
-            </>
-          )
-          : (
-            <>
-              <link
-                rel="preload"
-                href="/fonts/IBMPlexSansVar-Roman.woff2"
-                as="font"
-                type="font/woff2"
-                crossOrigin="anonymous"
-              />
-              <link
-                rel="preload"
-                href="/fonts/IBMPlexSansVar-Italic.woff2"
-                as="font"
-                type="font/woff2"
-                crossOrigin="anonymous"
-              />
-            </>
-          )}
-
         {['zh', 'ja', 'ko'].includes(
           config.lang.slice(0, 2).toLocaleLowerCase()
         ) && (

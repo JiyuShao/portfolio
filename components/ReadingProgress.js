@@ -18,8 +18,8 @@ export default function ReadingProgress() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none fixed inset-x-0 top-0 z-50 h-1 bg-primary-500"
-      style={{ width: `${progress * 100}%` }}
+      className="reading-progress"
+      style={{ transform: `scaleX(${progress})` }}
     />
   )
 }

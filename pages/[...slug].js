@@ -1,7 +1,4 @@
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { useLocale } from '@/lib/locale'
-import { useConfig } from '@/lib/config'
 import Container from '@/components/Container'
 import Post from '@/components/Post'
 import Comments from '@/components/Comments'
@@ -11,10 +8,6 @@ import { getAllPosts, getPostBySlug } from '@/lib/manifest.mjs'
 import { getToc } from '@/lib/toc.mjs'
 
 export default function BlogPost({ post, markdown, attachments, toc, prev, next }) {
-  const router = useRouter()
-  const BLOG = useConfig()
-  const locale = useLocale()
-
   return (
     <Container
       layout="blog"
@@ -27,41 +20,38 @@ export default function BlogPost({ post, markdown, attachments, toc, prev, next 
 
       <Post post={post} markdown={markdown} attachments={attachments} toc={toc} />
 
-      {/* Back and Top */}
-      <div className="px-4 flex justify-between font-medium text-gray-500 dark:text-gray-400 my-5 mx-auto max-w-3xl">
-        <a>
+      <div className="article-after">
+        <div className="article-tools">
+          <Link href="/" className="site-button site-button-ghost site-button-compact">
+            <span aria-hidden="true">←</span> 返回首页
+          </Link>
           <button
-            onClick={() => router.push(BLOG.path || '/')}
-            className="mt-2 cursor-pointer hover:text-black dark:hover:text-gray-100"
+            type="button"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="site-button site-button-ghost site-button-compact"
           >
-            ← {locale.POST.BACK}
+            回到顶部 <span aria-hidden="true">↑</span>
           </button>
-        </a>
-        <a>
-          <button
-            onClick={() => window.scrollTo({
-              top: 0,
-              behavior: 'smooth'
-            })}
-            className="mt-2 cursor-pointer hover:text-black dark:hover:text-gray-100"
-          >
-            ↑ {locale.POST.TOP}
-          </button>
-        </a>
+        </div>
       </div>
 
-      {/* Prev / Next */}
-      <Reveal className="mx-auto max-w-3xl px-4 mb-6 grid gap-4 sm:grid-cols-2">
+      <Reveal className="article-pagination">
         {prev ? (
-          <Link href={prev.slug} className="block rounded-lg border border-gray-200 p-3 hover:border-primary-400 dark:border-zinc-700 dark:hover:border-primary-500">
-            <p className="text-xs text-gray-500 dark:text-gray-400">← 上一篇</p>
-            <p className="truncate font-medium text-gray-900 dark:text-gray-100">{prev.title}</p>
+          <Link href={prev.slug} className="article-nav-card article-nav-card-prev">
+            <span className="article-nav-arrow" aria-hidden="true">←</span>
+            <span>
+              <span className="article-nav-label">上一篇</span>
+              <span className="article-nav-title">{prev.title}</span>
+            </span>
           </Link>
-        ) : <span className="hidden sm:block" />}
+        ) : <span className="hidden sm:block" aria-hidden="true" />}
         {next && (
-          <Link href={next.slug} className="block rounded-lg border border-gray-200 p-3 text-right hover:border-primary-400 dark:border-zinc-700 dark:hover:border-primary-500">
-            <p className="text-xs text-gray-500 dark:text-gray-400">下一篇 →</p>
-            <p className="truncate font-medium text-gray-900 dark:text-gray-100">{next.title}</p>
+          <Link href={next.slug} className="article-nav-card article-nav-card-next">
+            <span>
+              <span className="article-nav-label">下一篇</span>
+              <span className="article-nav-title">{next.title}</span>
+            </span>
+            <span className="article-nav-arrow" aria-hidden="true">→</span>
           </Link>
         )}
       </Reveal>

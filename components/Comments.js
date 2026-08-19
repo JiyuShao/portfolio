@@ -1,7 +1,6 @@
 import 'gitalk/dist/gitalk.css'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
-import cn from 'classnames'
 import { fetchCusdisLang } from '@/lib/cusdisLang'
 import { useConfig } from '@/lib/config'
 import useTheme from '@/lib/theme'
@@ -31,12 +30,12 @@ const Comments = ({ frontMatter }) => {
   const { theme } = useTheme()
 
   return (
-    <div
-      className={cn(
-        'px-4 font-medium text-gray-500 dark:text-gray-400 my-5',
-        'mx-auto max-w-3xl',
-      )}
-    >
+    <section className="article-comments">
+      <header className="article-comments-header">
+        <p>Discussion</p>
+        <h2>留言与讨论</h2>
+        <span>想法、补充和不同意见都欢迎。</span>
+      </header>
       {BLOG.comment && BLOG.comment.provider === 'gitalk' && (
         <GitalkComponent
           options={{
@@ -67,7 +66,7 @@ const Comments = ({ frontMatter }) => {
           }}
         />
       )}
-    </div>
+    </section>
   )
 }
 

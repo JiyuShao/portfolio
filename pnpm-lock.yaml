@@ -1,6 +1,8 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@fontsource-variable/dm-sans': 5.3.0
+  '@fontsource-variable/newsreader': 5.3.0
   '@tailwindcss/typography': ^0.5.15
   autoprefixer: ^10.4.16
   classnames: ^2.3.2
@@ -10,6 +12,7 @@ specifiers:
   feed: ^4.2.2
   gitalk: ^1.8.0
   highlight.js: ^11.9.0
+  lxgw-wenkai-webfont: 1.7.0
   next: ^14.0.2
   next-sitemap: ^4.2.3
   postcss: ^8.4.31
@@ -27,11 +30,14 @@ specifiers:
   use-ackee: ^3.0.1
 
 dependencies:
+  '@fontsource-variable/dm-sans': 5.3.0
+  '@fontsource-variable/newsreader': 5.3.0
   classnames: 2.5.1
   dayjs: 1.11.13
   feed: 4.2.2
   gitalk: 1.8.0_nnrd3gsncyragczmpvfhocinkq
   highlight.js: 11.12.0
+  lxgw-wenkai-webfont: 1.7.0
   next: 14.2.25_nnrd3gsncyragczmpvfhocinkq
   prop-types: 15.8.1
   react: 18.3.1
@@ -126,6 +132,14 @@ packages:
     resolution: {integrity: sha512-d9zaMRSTIKDLhctzH12MtXvJKSSUhaHcjV+2Z+GK+EEY7XKpP5yR4x+N3TAcHTcu963nIr+TMcCb4DBCYX1z6Q==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
+
+  /@fontsource-variable/dm-sans/5.3.0:
+    resolution: {integrity: sha512-BpUG5bqePiDFMBM4ZtLSlPdAIOM990uB1dlXzIf4aw21yQR7BmykedLXXXMqGWsR18aMLOsbWccwJNh3ztTQaA==}
+    dev: false
+
+  /@fontsource-variable/newsreader/5.3.0:
+    resolution: {integrity: sha512-rrzYi43qMpbzwuFtf9OkWH8sxAPVPcQQQEwXpPtwaKYeJ8yVg5aLs5kawmo1f2Q1t1M38TLmEKCkGVDsYwgdFw==}
+    dev: false
 
   /@humanwhocodes/config-array/0.13.0:
     resolution: {integrity: sha512-DZLEEqFWQFiyK6h5YIeynKx7JlvCYWL0cImfSRXZ9l4Sg2efkFGTuFf6vzXjK1cq6IYkU+Eg/JizXw+TD2vRNw==}
@@ -2426,6 +2440,10 @@ packages:
   /lru-cache/10.4.3:
     resolution: {integrity: sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==}
     dev: true
+
+  /lxgw-wenkai-webfont/1.7.0:
+    resolution: {integrity: sha512-kVJmT4xMAyOLhG6q0w63wJkVU7RP8UMQRGoAWj9tnpzL7sWFFYiEHBdUQyW9myqBQFa5SQfWfa2VLYF4IJBL5g==}
+    dev: false
 
   /markdown-table/3.0.4:
     resolution: {integrity: sha512-wiYz4+JrLyb/DqW2hkFJxP7Vd7JuTDm77fvbM8VfEQdmSMqcImWeeRbHwZjBjIFki/VaMK2BhFi7oUUZeM5bqw==}

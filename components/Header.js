@@ -10,27 +10,29 @@ const NavBar = () => {
   const locale = useLocale()
   const links = [
     { id: 0, name: locale.NAV.INDEX, to: `${BLOG.path}/search`, show: true },
-    { id: 1, name: locale.NAV.READING, to: BLOG.readingLink, show: true },
-    // { id: 1, name: locale.NAV.ABOUT, to: '/about', show: true },
-    // { id: 2, name: locale.NAV.SEARCH, to: '/search', show: true }
+    { id: 1, name: locale.NAV.READING, to: BLOG.readingLink, show: true, external: true }
   ]
   return (
-    <div className="flex-shrink-0">
-      <ul className="flex flex-row">
+    <nav className="flex-shrink-0" aria-label="主导航">
+      <ul className="flex flex-row items-center gap-1">
         {links.map(
           link =>
             link.show && (
-              <li
-                key={link.id}
-                className="block ml-4 text-black dark:text-gray-50 nav"
-              >
-                <Link href={link.to} target={link.external ? '_blank' : null}>{link.name}</Link>
+              <li key={link.id} className="nav">
+                <Link
+                  href={link.to}
+                  target={link.external ? '_blank' : undefined}
+                  rel={link.external ? 'noreferrer' : undefined}
+                  className="inline-flex rounded-full px-3 py-2 text-sm font-medium text-gray-600 transition hover:bg-gray-100 hover:text-gray-950 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-50"
+                >
+                  {link.name}
+                </Link>
               </li>
             )
         )}
         <ThemeToggle />
       </ul>
-    </div>
+    </nav>
   )
 }
 
@@ -83,35 +85,26 @@ export default function Header({ navBarTitle }) {
 
   return (
     <>
-      <div className="observer-element h-4 md:h-12" ref={sentinelRef}></div>
+      <div className="observer-element h-3 md:h-5" ref={sentinelRef}></div>
       <div
-        className="sticky-nav group m-auto w-full h-6 flex flex-row justify-between items-center mb-2 md:mb-12 py-8 bg-opacity-60 max-w-3xl px-4"
+        className="sticky-nav group m-auto mb-2 flex h-[4.5rem] w-full max-w-5xl flex-row items-center justify-between px-5 sm:px-6 md:mb-8"
         id="sticky-nav"
         ref={navRef}
         onClick={handleClickHeader}
       >
-        <svg
-          viewBox="0 0 24 24"
-          className="caret w-6 h-6 absolute inset-x-0 bottom-0 mx-auto pointer-events-none opacity-30 group-hover:opacity-100 transition duration-100"
-        >
-          <path
-            d="M12 10.828l-4.95 4.95-1.414-1.414L12 8l6.364 6.364-1.414 1.414z"
-            className="fill-black dark:fill-white"
-          />
-        </svg>
         <Link href="/" className="flex items-center" aria-label={BLOG.title}>
           <Image
-            className="rounded-full"
+            className="rounded-full ring-1 ring-black/10 dark:ring-white/15"
             src={favicon}
-            width={24}
-            height={24}
+            width={30}
+            height={30}
             alt={BLOG.title}
             onError={() => setFavicon(true)}
           />
           <HeaderName
             ref={titleRef}
             siteTitle={BLOG.title}
-            siteDescription={BLOG.description}
+            siteDescription={BLOG.nickname}
             postTitle={navBarTitle}
             onClick={handleClickHeader}
           />
@@ -131,8 +124,8 @@ const HeaderName = forwardRef(function HeaderName({ siteTitle, siteDescription, 
     >
       {postTitle && <span className="post-title row-start-1 col-start-1">{postTitle}</span>}
       <span className="row-start-1 col-start-1">
-        <span className="site-title">{siteTitle}</span>
-        <span className="site-description font-normal">, {siteDescription}</span>
+        <span className="site-title text-sm font-semibold tracking-tight text-gray-950 dark:text-zinc-50">{siteTitle}</span>
+        <span className="site-description ml-2 text-xs font-normal tracking-[0.08em] text-gray-400 dark:text-zinc-500">{siteDescription}</span>
       </span>
     </p>
   )

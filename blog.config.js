@@ -1,9 +1,10 @@
 const BLOG = {
   title: 'Jiyu Shao',
   author: 'Jiyu Shao',
+  nickname: '啊鸡同学切利哦',
   email: 'jiyu.shao@gmail.com',
   link: 'https://jiyu-shao.vercel.app',
-  description: 'jiyu-shao.vercel.app',
+  description: '记录软件、硬件与个人知识管理的实践。',
   lang: 'zh-CN', // ['en-US', 'zh-CN', 'zh-HK', 'zh-TW', 'ja-JP', 'es-ES']
   font: 'sans-serif', // ['sans-serif', 'serif']
   lightBackground: '#ffffff', // 纯白，与浅灰代码块形成边界

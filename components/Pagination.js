@@ -11,7 +11,7 @@ const Pagination = ({ page, showNext }) => {
   if (currentPage !== 1 && !showNext) additionalClassName = 'justify-start'
   return (
     <div
-      className={`flex font-medium text-black dark:text-gray-100 ${additionalClassName}`}
+      className={`mt-10 flex gap-3 ${additionalClassName}`}
     >
       {currentPage !== 1 && (
         <Link
@@ -20,17 +20,19 @@ const Pagination = ({ page, showNext }) => {
               ? `${BLOG.path}/`
               : `/page/${currentPage - 1}`
           }
+          rel="prev"
+          className="site-button site-button-secondary"
         >
-          <button rel="prev" className="block cursor-pointer">
-            ← {locale.PAGINATION.PREV}
-          </button>
+          ← {locale.PAGINATION.PREV}
         </Link>
       )}
       {showNext && (
-        <Link href={`/page/${currentPage + 1}`}>
-          <button rel="next" className="block cursor-pointer">
-            {locale.PAGINATION.NEXT} →
-          </button>
+        <Link
+          href={`/page/${currentPage + 1}`}
+          rel="next"
+          className="site-button site-button-secondary"
+        >
+          {locale.PAGINATION.NEXT} →
         </Link>
       )}
     </div>

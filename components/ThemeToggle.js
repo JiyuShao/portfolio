@@ -36,25 +36,28 @@ export default function ThemeToggle() {
   }
 
   return (
-    <li
-      className="ml-4 cursor-pointer font-medium text-gray-900 hover:text-primary-600 dark:text-gray-50 dark:hover:text-primary-400"
-      onClick={() => updateTheme(theme === 'dark' ? 'light' : 'dark')}
-    >
-      {theme === 'light' && (
+    <li className="ml-1 flex items-center">
+      <button
+        type="button"
+        className="inline-flex h-9 w-9 items-center justify-center rounded-full text-gray-600 transition hover:bg-gray-100 hover:text-gray-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-50"
+        onClick={() => updateTheme(theme === 'dark' ? 'light' : 'dark')}
+        aria-label={theme === 'dark' ? '切换到浅色模式' : '切换到深色模式'}
+      >
+        {theme === 'light' && (
         <svg
           id="theme-toggle-dark-icon"
-          className="w-5 h-5"
+          className="h-[18px] w-[18px]"
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
         </svg>
-      )}
-      {theme === 'dark' && (
+        )}
+        {theme === 'dark' && (
         <svg
           id="theme-toggle-light-icon"
-          className="w-5 h-5"
+          className="h-[18px] w-[18px]"
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +68,8 @@ export default function ThemeToggle() {
             clipRule="evenodd"
           ></path>
         </svg>
-      )}
+        )}
+      </button>
     </li>
   )
 }

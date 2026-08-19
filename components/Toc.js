@@ -31,20 +31,20 @@ export default function Toc({ toc, variant = 'desktop' }) {
   }, [toc, variant])
 
   const items = (
-    <ol className="text-sm leading-relaxed">
+    <ol className="toc-list">
       {toc.map(t => (
         <li
           key={t.id}
-          className={t.depth === 1 ? 'font-medium' : 'font-normal'}
+          className={t.depth === 1 ? 'toc-item toc-item-root' : 'toc-item'}
           style={{ paddingLeft: `${(t.depth - 1) * 0.75}rem` }}
         >
           <a
             href={`#${t.id}`}
             className={
-              'block py-0.5 truncate border-l-2 pl-2 ' +
+              'toc-link ' +
               (activeId === t.id
-                ? 'border-primary-500 text-primary-600 dark:text-primary-400'
-                : 'border-transparent text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-gray-100')
+                ? 'toc-link-active'
+                : '')
             }
           >
             {t.text}
@@ -56,11 +56,15 @@ export default function Toc({ toc, variant = 'desktop' }) {
 
   if (variant === 'mobile') {
     return (
-      <details className="group rounded-lg border border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800">
-        <summary className="cursor-pointer select-none px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-          目录
+      <details className="article-toc-mobile group">
+        <summary>
+          <span className="flex items-center gap-3">
+            <span className="article-toc-icon" aria-hidden="true">≡</span>
+            本文目录
+          </span>
+          <span className="text-xs font-normal text-gray-400 dark:text-zinc-500">{toc.length} 节</span>
         </summary>
-        <div ref={listRef} className="border-t border-gray-200 px-4 py-2 dark:border-gray-700">
+        <div ref={listRef} className="article-toc-mobile-list">
           {items}
         </div>
       </details>
@@ -68,8 +72,12 @@ export default function Toc({ toc, variant = 'desktop' }) {
   }
 
   return (
-    <nav aria-label="目录" className="pb-8">
-      <p className="mb-2 text-sm font-semibold text-gray-900 dark:text-gray-100">目录</p>
+    <nav aria-label="目录" className="article-toc-desktop">
+      <p className="article-toc-eyebrow">On this page</p>
+      <div className="mb-4 flex items-baseline justify-between">
+        <p className="font-serif text-lg font-normal text-gray-950 dark:text-zinc-50">本文目录</p>
+        <span className="text-xs text-gray-400 dark:text-zinc-600">{toc.length}</span>
+      </div>
       <div ref={listRef}>{items}</div>
     </nav>
   )
