@@ -2,7 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@fontsource-variable/dm-sans': 5.3.0
-  '@fontsource-variable/newsreader': 5.3.0
+  '@fontsource-variable/lora': 5.3.0
   '@tailwindcss/typography': ^0.5.15
   autoprefixer: ^10.4.16
   classnames: ^2.3.2
@@ -31,7 +31,7 @@ specifiers:
 
 dependencies:
   '@fontsource-variable/dm-sans': 5.3.0
-  '@fontsource-variable/newsreader': 5.3.0
+  '@fontsource-variable/lora': 5.3.0
   classnames: 2.5.1
   dayjs: 1.11.13
   feed: 4.2.2
@@ -137,8 +137,8 @@ packages:
     resolution: {integrity: sha512-BpUG5bqePiDFMBM4ZtLSlPdAIOM990uB1dlXzIf4aw21yQR7BmykedLXXXMqGWsR18aMLOsbWccwJNh3ztTQaA==}
     dev: false
 
-  /@fontsource-variable/newsreader/5.3.0:
-    resolution: {integrity: sha512-rrzYi43qMpbzwuFtf9OkWH8sxAPVPcQQQEwXpPtwaKYeJ8yVg5aLs5kawmo1f2Q1t1M38TLmEKCkGVDsYwgdFw==}
+  /@fontsource-variable/lora/5.3.0:
+    resolution: {integrity: sha512-2ph8KiZ8Bn141hWuC3ErtpJ+Ui8p2MJQn8TJNRSRmLmnCIOCtHfiBM9R7WLRPeUG/q6hXyHOxWQ8DvRSX+ixvQ==}
     dev: false
 
   /@humanwhocodes/config-array/0.13.0:

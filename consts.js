@@ -27,7 +27,7 @@ exports.FONTS_SANS = [
   'sans-serif'
 ]
 exports.FONTS_SERIF = [
-  '"Newsreader Variable"',
+  '"Lora Variable"',
   '"LXGW WenKai"',
   '"Source Serif"',
   'ui-serif',

@@ -1083,7 +1083,7 @@ body::before {
   max-width: 52rem;
   margin-top: 1rem;
   color: rgb(9 9 11);
-  font-family: 'Newsreader Variable', 'LXGW WenKai', 'Source Serif', ui-serif, Georgia, 'Songti SC', serif;
+  font-family: 'Lora Variable', 'LXGW WenKai', 'Source Serif', ui-serif, Georgia, 'Songti SC', serif;
   font-size: clamp(2.7rem, 6vw, 4.65rem);
   font-weight: 400;
   line-height: 1.08;
@@ -1290,7 +1290,7 @@ html .markdown-body h1,
 html .markdown-body h2,
 html .markdown-body h3 {
   color: rgb(24 24 27);
-  font-family: 'Newsreader Variable', 'LXGW WenKai', 'Source Serif', ui-serif, Georgia, 'Songti SC', serif;
+  font-family: 'Lora Variable', 'LXGW WenKai', 'Source Serif', ui-serif, Georgia, 'Songti SC', serif;
   font-weight: 400;
   letter-spacing: -0.025em;
   text-wrap: balance;
@@ -1522,7 +1522,7 @@ html.dark .markdown-body th {
   display: -webkit-box;
   overflow: hidden;
   color: rgb(39 39 42);
-  font-family: 'Newsreader Variable', 'LXGW WenKai', 'Source Serif', ui-serif, Georgia, 'Songti SC', serif;
+  font-family: 'Lora Variable', 'LXGW WenKai', 'Source Serif', ui-serif, Georgia, 'Songti SC', serif;
   font-size: 1.1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -1557,7 +1557,7 @@ html.dark .markdown-body th {
 .article-comments-header h2 {
   margin-top: 0.45rem;
   color: rgb(24 24 27);
-  font-family: 'Newsreader Variable', 'LXGW WenKai', 'Source Serif', ui-serif, Georgia, 'Songti SC', serif;
+  font-family: 'Lora Variable', 'LXGW WenKai', 'Source Serif', ui-serif, Georgia, 'Songti SC', serif;
   font-size: 1.75rem;
   font-weight: 400;
   letter-spacing: -0.025em;
