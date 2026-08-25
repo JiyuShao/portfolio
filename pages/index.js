@@ -8,7 +8,7 @@ import { getAllPosts } from '@/lib/manifest.mjs'
 import { useConfig } from '@/lib/config'
 
 export async function getStaticProps() {
-  const posts = await getAllPosts({ includePages: false })
+  const posts = await getAllPosts({ includePages: false, includeArchive: false })
   const postsToShow = posts.slice(0, clientConfig.postsPerPage)
   const totalPosts = posts.length
   const showNext = totalPosts > clientConfig.postsPerPage
