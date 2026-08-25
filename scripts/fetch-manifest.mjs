@@ -764,7 +764,22 @@ if (isMain) {
       await unpackArtifact({ gz, expected, supportedSchemaVersion, dataDir, attachmentsDir });
       console.log(`unpacked local artifact → ${dataDir}`);
     } else if (!token) {
-      throw new Error('MANIFEST_GITHUB_TOKEN is required unless --from is used');
+      // Local-first build (deploy-portfolio prepares data via --from and
+      // clears MANIFEST_GITHUB_TOKEN): skip when a valid Manifest is already
+      // installed, otherwise require a token.
+      let installed = false;
+      try {
+        const parsed = JSON.parse((await readFile(join(dataDir, 'manifest.json'), 'utf8')).toString());
+        installed = parsed?.schemaVersion === supportedSchemaVersion &&
+          Array.isArray(parsed.items) && parsed.items.length > 0 &&
+          /^[0-9a-f]{40}$/.test(parsed.sourceCommit ?? '');
+      } catch (error) {
+        if (error.code !== 'ENOENT' && !(error instanceof SyntaxError)) throw error;
+      }
+      if (!installed) {
+        throw new Error('MANIFEST_GITHUB_TOKEN is required unless --from is used');
+      }
+      console.log('manifest already installed — skip');
     } else {
       const { manifest, tagName, skipped } = await fetchAndUnpack({
         repo, tag, token, dataDir, attachmentsDir, supportedSchemaVersion, stateFile,
