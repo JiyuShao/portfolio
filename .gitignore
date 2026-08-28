@@ -42,3 +42,4 @@ public/sitemap.xml
 # publication manifest (fetched at build, never committed)
 /data
 /public/attachments
+/public/og

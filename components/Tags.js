@@ -13,15 +13,11 @@ const Tags = ({ tags, currentTag, categoryKey = 'all', label = '常用标签', q
     return b[1] - a[1] || a[0].localeCompare(b[0])
   })
   const compactLimit = 8
-  // Notebook is an import/source marker rather than a useful discovery facet.
-  // Keep it in the complete list and URL filters, but do not promote it above
-  // subject tags in the compact view.
-  const compactEntries = entries.filter(([tag]) => tag !== 'Notebook')
   const normalizedSearch = tagSearch.trim().toLocaleLowerCase('zh-CN')
   const filteredEntries = normalizedSearch
     ? entries.filter(([tag]) => tag.toLocaleLowerCase('zh-CN').includes(normalizedSearch))
     : entries
-  let visibleEntries = showAll ? filteredEntries : compactEntries.slice(0, compactLimit)
+  let visibleEntries = showAll ? filteredEntries : entries.slice(0, compactLimit)
   if (!showAll && currentTag && !visibleEntries.some(([tag]) => tag === currentTag)) {
     visibleEntries = [[currentTag, tagCounts[currentTag]], ...visibleEntries.slice(0, compactLimit - 1)]
   }

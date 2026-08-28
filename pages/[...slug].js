@@ -6,6 +6,7 @@ import ReadingProgress from '@/components/ReadingProgress'
 import Reveal from '@/components/Reveal'
 import { getAllPosts, getPostBySlug } from '@/lib/manifest.mjs'
 import { getToc } from '@/lib/toc.mjs'
+import { getOgImagePath, OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from '@/lib/og-card.mjs'
 
 export default function BlogPost({ post, markdown, attachments, toc, prev, next }) {
   return (
@@ -15,6 +16,13 @@ export default function BlogPost({ post, markdown, attachments, toc, prev, next 
       description={post.summary}
       slug={post.slug}
       type="article"
+      date={new Date(post.date).toISOString()}
+      category={post.category}
+      tags={post.tags}
+      image={getOgImagePath(post.slug)}
+      imageWidth={OG_IMAGE_WIDTH}
+      imageHeight={OG_IMAGE_HEIGHT}
+      imageType="image/png"
     >
       <ReadingProgress />
 

@@ -23,6 +23,22 @@ const Container = ({ children, layout, ...customMeta }) => {
     : (meta.canonicalPath ?? meta.slug ?? '')
   const canonicalUrl = canonicalPath === null ? null : `${url}${canonicalPath}`
   const imageUrl = meta.image.startsWith('http') ? meta.image : `${url}${meta.image}`
+  const structuredData = meta.type === 'article' && canonicalUrl && meta.date
+    ? JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: meta.title,
+      description: meta.description,
+      datePublished: meta.date,
+      author: {
+        '@type': 'Person',
+        name: BLOG.author
+      },
+      mainEntityOfPage: canonicalUrl,
+      url: canonicalUrl,
+      image: [imageUrl]
+    }).replaceAll('<', '\\u003c')
+    : null
   return (
     <div>
       <Head>
@@ -47,20 +63,33 @@ const Container = ({ children, layout, ...customMeta }) => {
         {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
         <meta property="og:image" content={imageUrl} />
         <meta property="og:image:alt" content={meta.imageAlt || meta.title} />
+        {meta.imageType && <meta property="og:image:type" content={meta.imageType} />}
+        {meta.imageWidth && <meta property="og:image:width" content={meta.imageWidth} />}
+        {meta.imageHeight && <meta property="og:image:height" content={meta.imageHeight} />}
         <meta property="og:type" content={meta.type} />
-        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:card" content={meta.imageWidth >= 1200 ? 'summary_large_image' : 'summary'} />
         <meta name="twitter:description" content={meta.description} />
         <meta name="twitter:title" content={meta.title} />
         <meta name="twitter:image" content={imageUrl} />
         {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
-        {meta.type === 'article' && (
+        {meta.type === 'article' && meta.date && (
           <>
             <meta
               property="article:published_time"
               content={meta.date}
             />
             <meta property="article:author" content={BLOG.author} />
+            {meta.category && <meta property="article:section" content={meta.category} />}
+            {meta.tags?.map(tag => (
+              <meta key={tag} property="article:tag" content={tag} />
+            ))}
           </>
+        )}
+        {structuredData && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: structuredData }}
+          />
         )}
       </Head>
       <div
