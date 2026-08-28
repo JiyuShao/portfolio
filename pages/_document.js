@@ -1,41 +1,11 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import { config } from '@/lib/server/config'
 import tailwind from '@/tailwind.config'
-import CJK from '@/lib/cjk'
 
 export default function MyDocument() {
   return (
     <Html lang={config.lang}>
       <Head>
-        {['zh', 'ja', 'ko'].includes(
-          config.lang.slice(0, 2).toLocaleLowerCase()
-        ) && (
-            <>
-              <link
-                rel="preconnect"
-                href="https://fonts.gstatic.com"
-                crossOrigin="anonymous"
-              />
-              <link
-                rel="preload"
-                as="style"
-                href={`https://fonts.googleapis.com/css2?family=Noto+${config.font === 'serif' ? 'Serif' : 'Sans'
-                  }+${CJK()}:wght@400;500;700&display=swap`}
-              />
-              <link
-                rel="stylesheet"
-                href={`https://fonts.googleapis.com/css2?family=Noto+${config.font === 'serif' ? 'Serif' : 'Sans'
-                  }+${CJK()}:wght@400;500;700&display=swap`}
-              />
-              <noscript>
-                <link
-                  rel="stylesheet"
-                  href={`https://fonts.googleapis.com/css2?family=Noto+${config.font === 'serif' ? 'Serif' : 'Sans'
-                    }+${CJK()}:wght@400;500;700&display=swap`}
-                />
-              </noscript>
-            </>
-          )}
         <link rel="icon" href="/favicon.png" />
         <style>
           {`

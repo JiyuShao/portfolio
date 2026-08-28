@@ -7,7 +7,12 @@ import { getAllPosts } from '@/lib/manifest.mjs'
 
 const Page = ({ postsToShow, page, showNext }) => {
   return (
-    <Container>
+    <Container
+      title={`文章列表 · 第 ${page} 页`}
+      description="历史分页入口，请使用内容索引继续浏览。"
+      canonicalPath="/search?category=articles"
+      noindex
+    >
       {postsToShow &&
         postsToShow.map(post => <BlogPost key={post.id} post={post} />)}
       <Pagination page={page} showNext={showNext} />

@@ -15,7 +15,7 @@ const BLOG = {
   sortByDate: true,
   readingLink: 'https://jiyu-shao.notion.site/3e1653efbede4cfe81bd33b08b562e1a',
   showArchive: false,
-  ogImage: '', // OG Image
+  ogImage: '/favicon.png', // Self-hosted default social card image
   githubLink: 'https://github.com/JiyuShao',
   socialLink: 'https://github.com/JiyuShao',
   seo: {

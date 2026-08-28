@@ -12,15 +12,23 @@ const Container = ({ children, layout, ...customMeta }) => {
   const url = BLOG.path.length ? `${BLOG.link}/${BLOG.path}` : BLOG.link
   const meta = {
     title: BLOG.title,
+    description: BLOG.description,
+    image: BLOG.ogImage || '/favicon.png',
     type: 'website',
     ...customMeta
   }
+  const documentTitle = meta.title === BLOG.title ? meta.title : `${meta.title} · ${BLOG.title}`
+  const canonicalPath = meta.canonicalPath === false
+    ? null
+    : (meta.canonicalPath ?? meta.slug ?? '')
+  const canonicalUrl = canonicalPath === null ? null : `${url}${canonicalPath}`
+  const imageUrl = meta.image.startsWith('http') ? meta.image : `${url}${meta.image}`
   return (
     <div>
       <Head>
-        <title>{meta.title}</title>
+        <title>{documentTitle}</title>
         {/* <meta content={BLOG.darkBackground} name="theme-color" /> */}
-        <meta name="robots" content="follow, index" />
+        <meta name="robots" content={meta.noindex ? 'noindex, follow' : 'index, follow'} />
         <meta charSet="UTF-8" />
         {BLOG.seo.googleSiteVerification && (
           <meta
@@ -33,22 +41,18 @@ const Container = ({ children, layout, ...customMeta }) => {
         )}
         <meta name="description" content={meta.description} />
         <meta property="og:locale" content={BLOG.lang} />
+        <meta property="og:site_name" content={BLOG.title} />
         <meta property="og:title" content={meta.title} />
         <meta property="og:description" content={meta.description} />
-        <meta
-          property="og:url"
-          content={meta.slug ? `${url}${meta.slug}` : url}
-        />
-        <meta
-          property="og:image"
-        />
+        {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+        <meta property="og:image" content={imageUrl} />
+        <meta property="og:image:alt" content={meta.imageAlt || meta.title} />
         <meta property="og:type" content={meta.type} />
-        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:card" content="summary" />
         <meta name="twitter:description" content={meta.description} />
         <meta name="twitter:title" content={meta.title} />
-        <meta
-          name="twitter:image"
-        />
+        <meta name="twitter:image" content={imageUrl} />
+        {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
         {meta.type === 'article' && (
           <>
             <meta

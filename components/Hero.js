@@ -22,7 +22,8 @@ export default function Hero () {
       href: BLOG.readingLink,
       icon: '/images/reading.svg',
       alt: '',
-      tone: 'reading'
+      tone: 'reading',
+      external: true
     },
     {
       number: '03',
@@ -32,7 +33,8 @@ export default function Hero () {
       href: BLOG.githubLink,
       icon: '/images/earth.svg',
       alt: '',
-      tone: 'projects'
+      tone: 'projects',
+      external: true
     }
   ]
 
@@ -71,6 +73,9 @@ export default function Hero () {
           <Link
             key={path.title}
             href={path.href}
+            target={path.external ? '_blank' : undefined}
+            rel={path.external ? 'noreferrer' : undefined}
+            aria-label={path.external ? `${path.title}（在新窗口打开）` : undefined}
             className={`home-path home-path--${path.tone}`}
           >
             <span className="home-path-number">{path.number}</span>

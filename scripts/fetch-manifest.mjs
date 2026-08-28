@@ -152,7 +152,11 @@ function validateManifest(manifest) {
         !attachment || typeof attachment !== 'object' ||
         !validLogicalPath(attachment.logicalPath) ||
         !validAttachmentIdentity(attachment.artifactPath, attachment.contentHash) ||
-        typeof attachment.mediaType !== 'string' || !attachment.mediaType
+        typeof attachment.mediaType !== 'string' || !attachment.mediaType ||
+        ((attachment.width !== undefined || attachment.height !== undefined) && (
+          !Number.isInteger(attachment.width) || attachment.width <= 0 ||
+          !Number.isInteger(attachment.height) || attachment.height <= 0
+        ))
       ) {
         throw new Error(`artifact contains an invalid Manifest item at index ${index}`);
       }

@@ -8,12 +8,24 @@ import PropTypes from 'prop-types'
 import { CONTENT_CATEGORIES, getContentCategory, getContentCategoryHref } from '@/lib/content-categories'
 import { countContentByCategory, filterContentPosts, normalizeQueryValue } from '@/lib/content-query.mjs'
 
+const RESULT_PAGE_SIZE = 24
+
+function availableIndexDescription (categoryCounts) {
+  const labels = CONTENT_CATEGORIES
+    .filter(item => item.key !== 'all' && (categoryCounts[item.key] ?? 0) > 0)
+    .map(item => item.key === 'archive' ? '历史归档' : item.label)
+  if (!labels.length) return '这里会汇总公开发布的内容。'
+  if (labels.length === 1) return `${labels[0]}的完整索引。`
+  return `${labels.slice(0, -1).join('、')}与${labels.at(-1)}的完整索引。`
+}
+
 const SearchLayout = ({ tags, posts, currentTag, categoryCounts }) => {
   const router = useRouter()
   const categoryQuery = normalizeQueryValue(router.query.category)
   const activeTag = currentTag || normalizeQueryValue(router.query.tag)
   const queryFromUrl = normalizeQueryValue(router.query.q) || ''
   const [searchValue, setSearchValue] = useState(queryFromUrl)
+  const [visibleCount, setVisibleCount] = useState(RESULT_PAGE_SIZE)
   const searchInputRef = useRef(null)
   const activeCategory = getContentCategory(categoryQuery).key
   const category = getContentCategory(activeCategory)
@@ -38,10 +50,32 @@ const SearchLayout = ({ tags, posts, currentTag, categoryCounts }) => {
     tag: activeTag,
     search: searchValue
   })
+  const visibleBlogPosts = filteredBlogPosts.slice(0, visibleCount)
+  const remainingCount = filteredBlogPosts.length - visibleBlogPosts.length
+  const visibleCategories = CONTENT_CATEGORIES.filter(item => (
+    item.key === 'all' || item.key === activeCategory || (visibleCategoryCounts[item.key] ?? 0) > 0
+  ))
+  const canonicalPath = currentTag
+    ? `/tag/${encodeURIComponent(currentTag)}`
+    : getContentCategoryHref(activeCategory, { tag: activeTag })
+  const pageTitle = currentTag
+    ? `#${currentTag}`
+    : activeTag
+      ? `${category.title} · #${activeTag}`
+      : activeCategory === 'all' ? '内容索引' : category.title
+  const pageDescription = currentTag
+    ? `${posts.length} 篇与 #${currentTag} 相关的公开记录。`
+    : activeTag
+      ? `${category.description} 当前进一步筛选 #${activeTag}。`
+      : activeCategory === 'all' ? availableIndexDescription(categoryCounts) : category.description
 
   useEffect(() => {
     if (router.isReady) setSearchValue(queryFromUrl)
   }, [queryFromUrl, router.isReady])
+
+  useEffect(() => {
+    setVisibleCount(RESULT_PAGE_SIZE)
+  }, [activeCategory, activeTag, searchValue])
 
   useEffect(() => {
     if (!router.isReady || searchValue === queryFromUrl) return
@@ -76,7 +110,12 @@ const SearchLayout = ({ tags, posts, currentTag, categoryCounts }) => {
   }, [])
 
   return (
-    <Container>
+    <Container
+      title={pageTitle}
+      description={pageDescription}
+      canonicalPath={canonicalPath}
+      noindex={Boolean(searchValue) || !currentTag}
+    >
       <header className="mb-8 pt-8 md:mb-10 md:pt-12">
         <p className="mb-3 text-xs font-medium uppercase tracking-[0.16em] text-primary-500 dark:text-primary-400">
           {currentTag ? 'Tag' : category.eyebrow}
@@ -85,16 +124,12 @@ const SearchLayout = ({ tags, posts, currentTag, categoryCounts }) => {
           {currentTag ? `#${currentTag}` : category.title}
         </h1>
         <p className="mt-3 max-w-2xl text-sm leading-7 text-gray-500 dark:text-zinc-500">
-          {currentTag
-            ? `${posts.length} 篇相关记录`
-            : activeTag
-              ? `${category.description} 当前进一步筛选 #${activeTag}。`
-              : category.description}
+          {pageDescription}
         </p>
       </header>
       <nav className="border-b border-gray-200 dark:border-zinc-800" aria-label="内容分类">
         <ul className="flex max-w-full gap-6 overflow-x-auto sm:gap-8">
-          {CONTENT_CATEGORIES.map(item => {
+          {visibleCategories.map(item => {
             const selected = item.key === activeCategory
             return (
               <li key={item.key} className="flex-none">
@@ -167,7 +202,7 @@ const SearchLayout = ({ tags, posts, currentTag, categoryCounts }) => {
         query={searchValue}
       />
       <div className="mt-10 flex items-center justify-between border-b border-gray-200 pb-3 text-xs font-medium uppercase tracking-[0.14em] text-gray-400 dark:border-zinc-800 dark:text-zinc-500">
-        <span>{searchValue
+        <span role="status" aria-live="polite">{searchValue
           ? `找到 ${filteredBlogPosts.length} 条`
           : activeTag
             ? `#${activeTag} · ${tagFilteredPosts.length} 条内容`
@@ -184,10 +219,22 @@ const SearchLayout = ({ tags, posts, currentTag, categoryCounts }) => {
                 : `“${category.title}”中暂时还没有内容。`}
           </p>
         )}
-        {filteredBlogPosts.map(post => (
+        {visibleBlogPosts.map(post => (
           <BlogPost key={post.id} post={post} currentTag={activeTag} query={searchValue} />
         ))}
       </div>
+      {remainingCount > 0 && (
+        <div className="mt-8 flex justify-center">
+          <button
+            type="button"
+            className="site-button site-button-secondary"
+            onClick={() => setVisibleCount(count => count + RESULT_PAGE_SIZE)}
+          >
+            显示更多
+            <span className="text-xs text-gray-400 dark:text-zinc-500">还剩 {remainingCount} 条</span>
+          </button>
+        </div>
+      )}
     </Container>
   )
 }

@@ -10,7 +10,6 @@ import dynamic from 'next/dynamic'
 import loadLocale from '@/assets/i18n'
 import { ConfigProvider, getConfig } from '@/lib/config'
 import { LocaleProvider } from '@/lib/locale'
-import { prepareDayjs } from '@/lib/dayjs'
 import { ThemeProvider } from '@/lib/theme'
 import Scripts from '@/components/Scripts'
 
@@ -41,8 +40,6 @@ export default function MyApp ({ Component, pageProps, config, locale }) {
 
 MyApp.getInitialProps = async ctx => {
   const config = await getConfig()
-
-  prepareDayjs(config.timezone)
 
   return {
     ...App.getInitialProps(ctx),

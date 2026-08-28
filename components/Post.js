@@ -30,13 +30,19 @@ function readingMinutes(markdown) {
  * @param {object} props
  * @param {object} props.post        - Post metadata
  * @param {string} props.markdown    - Markdown body from the Manifest
- * @param {Array}  props.attachments - Attachment inventory for image refs
+ * @param {Array}  props.attachments - Attachment inventory for image and video refs
  * @param {Array}  props.toc         - [{ depth, text, id }] headings from getToc
  */
 export default function Post({ post, markdown, attachments, toc = [] }) {
   const showToc = toc.length >= 2
   const minutes = readingMinutes(markdown)
   const category = getContentCategory(post.category)
+  const titleLength = Array.from(post.title).length
+  const titleClassName = titleLength > 38
+    ? 'article-title article-title-extra-long'
+    : titleLength > 24
+      ? 'article-title article-title-long'
+      : 'article-title'
   const body = (
     <Reveal className="article-body-wrap">
       <div className="article-body-inner">
@@ -59,7 +65,7 @@ export default function Post({ post, markdown, attachments, toc = [] }) {
         <p className="article-kicker">
           {sectionLabel(post.slug)} <span aria-hidden="true">·</span> {new Date(post.date).getFullYear()}
         </p>
-        <h1 className="article-title">{post.title}</h1>
+        <h1 className={titleClassName}>{post.title}</h1>
         {post.summary && (
           <p className="article-summary">{post.summary}</p>
         )}
