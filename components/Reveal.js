@@ -1,5 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
+import {
+  REVEAL_INTERSECTION_THRESHOLD,
+  shouldDelayReveal
+} from '@/lib/reveal.mjs'
 
 /**
  * Scroll-reveal wrapper: content starts visible (SSR/SEO/no-JS safe); when the
@@ -13,7 +17,8 @@ export default function Reveal({ children, className }) {
   useEffect(() => {
     const el = ref.current
     if (!el || typeof IntersectionObserver === 'undefined') return
-    if (el.getBoundingClientRect().top < window.innerHeight - 24) return
+    const { top, height } = el.getBoundingClientRect()
+    if (!shouldDelayReveal({ top, height, viewportHeight: window.innerHeight })) return
     setHidden(true)
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -22,7 +27,7 @@ export default function Reveal({ children, className }) {
           observer.disconnect()
         }
       },
-      { threshold: 0.05, rootMargin: '0px 0px -5% 0px' }
+      { threshold: REVEAL_INTERSECTION_THRESHOLD, rootMargin: '0px 0px -5% 0px' }
     )
     observer.observe(el)
     return () => observer.disconnect()
