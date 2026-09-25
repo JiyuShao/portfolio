@@ -20,7 +20,7 @@
     "start": "next start",
     "lint": "next lint",
     "postbuild": "next-sitemap --config next-sitemap.config.js",
-    "test": "node --test scripts/fetch-manifest.test.mjs lib/content-query.test.mjs lib/manifest.test.mjs lib/markdown.test.mjs lib/og-card.test.mjs lib/redirects.test.mjs lib/reveal.test.mjs"
+    "test": "node --test scripts/fetch-manifest.test.mjs lib/content-query.test.mjs lib/manifest.test.mjs lib/markdown.test.mjs lib/navigation-history.test.mjs lib/og-card.test.mjs lib/redirects.test.mjs lib/reveal.test.mjs"
   },
   "dependencies": {
     "@fontsource-variable/dm-sans": "5.3.0",

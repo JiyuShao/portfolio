@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
-import Link from 'next/link'
 import FormattedDate from '@/components/FormattedDate'
+import ArticleBackLink from '@/components/ArticleBackLink'
 import TagItem from '@/components/TagItem'
 import Toc from '@/components/Toc'
 import Reveal from '@/components/Reveal'
@@ -58,10 +58,11 @@ export default function Post({ post, markdown, attachments, toc = [] }) {
   const header = (
     <header className="article-hero">
       <div className="article-hero-inner">
-        <Link href={getContentCategoryHref(category.key)} className="article-back-link">
-          <span aria-hidden="true">←</span>
-          返回{category.label}
-        </Link>
+        <ArticleBackLink
+          fallbackHref={getContentCategoryHref('all')}
+          fallbackLabel="返回所有文章"
+          className="article-back-link"
+        />
         <p className="article-kicker">
           {sectionLabel(post.slug)} <span aria-hidden="true">·</span> {new Date(post.date).getFullYear()}
         </p>

@@ -11,6 +11,7 @@ import loadLocale from '@/assets/i18n'
 import { ConfigProvider, getConfig } from '@/lib/config'
 import { LocaleProvider } from '@/lib/locale'
 import { ThemeProvider } from '@/lib/theme'
+import { NavigationHistoryProvider } from '@/components/NavigationHistory'
 import Scripts from '@/components/Scripts'
 
 const Ackee = dynamic(() => import('@/components/Ackee'), { ssr: false })
@@ -22,7 +23,7 @@ export default function MyApp ({ Component, pageProps, config, locale }) {
       <Scripts />
       <LocaleProvider value={locale}>
         <ThemeProvider>
-          <>
+          <NavigationHistoryProvider>
             {process.env.VERCEL_ENV === 'production' && config?.analytics?.provider === 'ackee' && (
               <Ackee
                 ackeeServerUrl={config.analytics.ackeeConfig.dataAckeeServer}
@@ -31,7 +32,7 @@ export default function MyApp ({ Component, pageProps, config, locale }) {
             )}
             {process.env.VERCEL_ENV === 'production' && config?.analytics?.provider === 'ga' && <Gtag />}
             <Component {...pageProps} />
-          </>
+          </NavigationHistoryProvider>
         </ThemeProvider>
       </LocaleProvider>
     </ConfigProvider>
