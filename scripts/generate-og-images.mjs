@@ -12,6 +12,7 @@ import {
 } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { dirname, join, relative, resolve, sep } from 'node:path';
+import { pathToFileURL } from 'node:url';
 import {
   buildOgCardSvg,
   getOgImagePath,
@@ -86,6 +87,6 @@ export async function generateOgImages() {
   console.log(`generated ${manifest.items.length} article OG images in public/og`);
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
   await generateOgImages();
 }
